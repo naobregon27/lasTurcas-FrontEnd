@@ -12,11 +12,11 @@ export default function ConfirmDialog({ open, onClose, onConfirm, title, message
         <h3 className="text-base font-semibold text-white mb-2">{title}</h3>
         <p className="text-sm text-slate-400">{message}</p>
 
-        <div className="flex gap-3 justify-center mt-6">
-          <Button variant="ghost" onClick={onClose} disabled={loading}>
+        <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 justify-stretch sm:justify-center mt-6 w-full max-w-xs mx-auto">
+          <Button variant="ghost" onClick={onClose} disabled={loading} className="w-full sm:w-auto">
             Cancelar
           </Button>
-          <Button variant="danger" onClick={onConfirm} loading={loading}>
+          <Button variant="danger" onClick={onConfirm} loading={loading} className="w-full sm:w-auto">
             {confirmLabel}
           </Button>
         </div>

@@ -82,19 +82,19 @@ export default function Suppliers() {
   return (
     <div className="space-y-5">
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { label: 'Proveedores activos', value: totalSuppliers, icon: Truck, color: 'rgba(245,158,11,0.12)', iconColor: '#f59e0b' },
           { label: 'Ingresos registrados', value: totalEntriesAll, icon: Package, color: 'rgba(99,102,241,0.12)', iconColor: '#818cf8' },
           { label: 'Total compras', value: formatCurrency(totalSpentAll), icon: DollarSign, color: 'rgba(16,185,129,0.12)', iconColor: '#34d399' },
         ].map((s) => (
-          <div key={s.label} className="bg-card border border-card-border rounded-2xl p-4 flex items-center gap-4"
+          <div key={s.label} className="bg-card border border-card-border rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
             style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.3)' }}>
             <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
               style={{ background: s.color }}>
               <s.icon size={18} style={{ color: s.iconColor }} />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">{s.label}</p>
               <p className="text-xl font-extrabold text-white mt-0.5">{s.value}</p>
             </div>
@@ -103,8 +103,8 @@ export default function Suppliers() {
       </div>
 
       {/* Toolbar */}
-      <div className="bg-card border border-card-border rounded-xl px-4 py-3 flex items-center gap-3">
-        <div className="relative flex-1 min-w-48">
+      <div className="bg-card border border-card-border rounded-xl px-4 py-3 flex flex-wrap items-center gap-3">
+        <div className="relative flex-1 min-w-0 w-full sm:min-w-[12rem]">
           <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
           <input
             value={search}
@@ -118,8 +118,8 @@ export default function Suppliers() {
             </button>
           )}
         </div>
-        <span className="text-xs text-slate-500 ml-auto">{filtered.length} proveedor{filtered.length !== 1 ? 'es' : ''}</span>
-        <Button icon={Plus} onClick={openAdd}>Nuevo Proveedor</Button>
+        <span className="text-xs text-slate-500 w-full sm:w-auto text-center sm:text-left sm:ml-auto order-2 sm:order-none">{filtered.length} proveedor{filtered.length !== 1 ? 'es' : ''}</span>
+        <Button icon={Plus} onClick={openAdd} className="w-full sm:w-auto order-3 sm:order-none">Nuevo Proveedor</Button>
       </div>
 
       {/* List */}

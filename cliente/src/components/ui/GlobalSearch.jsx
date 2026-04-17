@@ -94,7 +94,7 @@ export default function GlobalSearch({ open, onClose }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-start justify-center pt-[12vh] px-4"
+          className="fixed inset-0 z-50 flex items-start justify-center pt-[max(0.75rem,8svh)] sm:pt-[12vh] px-3 sm:px-4 pb-[env(safe-area-inset-bottom)]"
           onClick={onClose}
         >
           {/* Backdrop */}
@@ -105,15 +105,15 @@ export default function GlobalSearch({ open, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="relative w-full max-w-xl bg-card border border-card-border rounded-2xl shadow-2xl overflow-hidden"
+            className="relative w-full max-w-xl max-h-[min(calc(100dvh-2rem),520px)] flex flex-col bg-card border border-card-border rounded-2xl shadow-2xl overflow-hidden"
             style={{ boxShadow: '0 25px 80px rgba(0,0,0,0.7), 0 0 40px rgba(245,158,11,0.08)' }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Top bar */}
-            <div className="h-[2px] bg-gradient-to-r from-amber-700 via-amber-400 to-orange-500" />
+            <div className="h-[2px] flex-shrink-0 bg-gradient-to-r from-amber-700 via-amber-400 to-orange-500" />
 
             {/* Search input */}
-            <div className="flex items-center gap-3 px-4 py-3.5 border-b border-card-border">
+            <div className="flex flex-shrink-0 items-center gap-3 px-4 py-3.5 border-b border-card-border">
               <Search size={16} className="text-slate-500 flex-shrink-0" />
               <input
                 ref={inputRef}
@@ -133,7 +133,7 @@ export default function GlobalSearch({ open, onClose }) {
             </div>
 
             {/* Results */}
-            <div className="max-h-[380px] overflow-y-auto py-2">
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-2">
               {flatItems.length === 0 ? (
                 <p className="text-center text-sm text-slate-500 py-8">Sin resultados para &ldquo;{query}&rdquo;</p>
               ) : (
@@ -179,16 +179,17 @@ export default function GlobalSearch({ open, onClose }) {
             </div>
 
             {/* Footer */}
-            <div className="px-4 py-2.5 border-t border-card-border flex items-center justify-between"
+            <div className="flex-shrink-0 px-4 py-2.5 border-t border-card-border flex flex-wrap items-center justify-between gap-2"
               style={{ background: 'rgba(255,255,255,0.01)' }}>
-              <div className="flex items-center gap-3 text-[10px] text-slate-600">
+              <div className="hidden sm:flex items-center gap-3 text-[10px] text-slate-600">
                 <span className="flex items-center gap-1"><kbd className="font-mono border border-slate-700 rounded px-1">↑↓</kbd> navegar</span>
                 <span className="flex items-center gap-1"><kbd className="font-mono border border-slate-700 rounded px-1">↵</kbd> abrir</span>
               </div>
-              <div className="flex items-center gap-1 text-[10px] text-slate-600">
+              <div className="hidden sm:flex items-center gap-1 text-[10px] text-slate-600">
                 <Command size={10} />
-                <span>K para abrir</span>
+                <span>Ctrl+K</span>
               </div>
+              <p className="sm:hidden text-[10px] text-slate-600 w-full text-center">Tocá un resultado para abrir</p>
             </div>
           </motion.div>
         </motion.div>

@@ -177,7 +177,7 @@ export default function StockEntry() {
                 <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <Truck size={12} /> Datos del Ingreso
                 </h4>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <Input
                     label={`Cantidad de ${selectedProduct.baseUnit}s recibidas *`}
                     type="number"
@@ -245,7 +245,7 @@ export default function StockEntry() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <Input
                       label="Margen de merma (%)"
                       type="number"

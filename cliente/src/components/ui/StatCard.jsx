@@ -44,16 +44,16 @@ export default function StatCard({ title, value, subtitle, icon: Icon, color = '
 
   return (
     <div
-      className="bg-card border border-card-border rounded-2xl p-5 relative overflow-hidden phoenix-card-hover"
+      className="bg-card border border-card-border rounded-2xl p-4 sm:p-5 relative overflow-hidden phoenix-card-hover"
       style={{ boxShadow: `0 4px 24px rgba(0,0,0,0.3), ${c.glowStyle}` }}
     >
       {/* Gradient bar top */}
       <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${c.bar} opacity-70`} />
 
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0">
           <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-widest">{title}</p>
-          <p className="text-2xl font-extrabold text-white mt-1.5 leading-tight">{value}</p>
+          <p className="text-lg sm:text-2xl font-extrabold text-white mt-1.5 leading-tight break-words">{value}</p>
           {subtitle && <p className="text-xs text-slate-600 mt-1">{subtitle}</p>}
           {trend !== undefined && (
             <div className={`inline-flex items-center gap-1 mt-2 text-xs font-semibold ${trend >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>

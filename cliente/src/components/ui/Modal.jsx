@@ -31,7 +31,7 @@ export default function Modal({ open, onClose, title, subtitle, children, size =
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-end justify-center sm:items-center p-0 sm:p-4"
         >
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
           <motion.div
@@ -39,10 +39,10 @@ export default function Modal({ open, onClose, title, subtitle, children, size =
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 8 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className={`relative w-full ${SIZES[size]} bg-card border border-card-border rounded-2xl shadow-2xl shadow-black/50 flex flex-col max-h-[90vh]`}
+            className={`relative w-full ${SIZES[size]} bg-card border border-card-border rounded-t-2xl sm:rounded-2xl shadow-2xl shadow-black/50 flex flex-col max-h-[min(92dvh,100%)] sm:max-h-[90vh]`}
           >
             {/* Header */}
-            <div className="flex items-start justify-between px-6 py-4 border-b border-card-border flex-shrink-0">
+            <div className="flex items-start justify-between px-4 sm:px-6 py-4 border-b border-card-border flex-shrink-0 gap-3">
               <div>
                 <h3 className="text-base font-semibold text-white">{title}</h3>
                 {subtitle && <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>}
@@ -56,13 +56,13 @@ export default function Modal({ open, onClose, title, subtitle, children, size =
             </div>
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto px-6 py-5">
+            <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-5 min-h-0">
               {children}
             </div>
 
             {/* Footer */}
             {footer && (
-              <div className="px-6 py-4 border-t border-card-border flex-shrink-0">
+              <div className="px-4 sm:px-6 py-4 border-t border-card-border flex-shrink-0 pb-[max(1rem,env(safe-area-inset-bottom))] sm:pb-4">
                 {footer}
               </div>
             )}

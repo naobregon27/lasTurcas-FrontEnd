@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ['three', 'framer-motion', '@react-three/fiber', '@react-three/drei'],
+    include: ['three', 'framer-motion', '@react-three/fiber', '@react-three/drei', 'react-joyride'],
   },
   build: {
     chunkSizeWarningLimit: 1600,

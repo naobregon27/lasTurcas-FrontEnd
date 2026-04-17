@@ -58,8 +58,8 @@ export default function SalesHistory() {
   return (
     <div className="space-y-4">
       {/* Filters */}
-      <div className="bg-card border border-card-border rounded-xl p-4 flex flex-wrap items-center gap-3">
-        <div className="relative flex-1 min-w-48">
+      <div className="bg-card border border-card-border rounded-xl p-4 flex flex-wrap items-stretch sm:items-center gap-3">
+        <div className="relative flex-1 min-w-0 w-full sm:min-w-[12rem]">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
           <input
             value={search}
@@ -69,21 +69,21 @@ export default function SalesHistory() {
           />
           {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"><X size={13} /></button>}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto min-w-0">
           <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)}
-            className="bg-input border border-input-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
-          <span className="text-slate-500 text-sm">→</span>
+            className="w-full sm:w-auto min-w-0 bg-input border border-input-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+          <span className="text-slate-500 text-sm text-center hidden sm:inline">→</span>
           <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)}
-            className="bg-input border border-input-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+            className="w-full sm:w-auto min-w-0 bg-input border border-input-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
         </div>
         {hasFilters && (
           <button onClick={clearFilters} className="text-xs text-slate-500 hover:text-white flex items-center gap-1 transition-colors">
             <X size={12} /> Limpiar
           </button>
         )}
-        <div className="ml-auto flex items-center gap-3">
-          <div className="text-xs text-slate-500">{filtered.length} ventas · <span className="text-emerald-400 font-semibold">{formatCurrency(totalFiltered)}</span></div>
-          <Button variant="ghost" size="sm" icon={FileSpreadsheet} onClick={handleExport}>Exportar Excel</Button>
+        <div className="flex flex-col sm:flex-row sm:ml-auto w-full sm:w-auto items-stretch sm:items-center gap-2 sm:gap-3">
+          <div className="text-xs text-slate-500 text-center sm:text-left">{filtered.length} ventas · <span className="text-emerald-400 font-semibold">{formatCurrency(totalFiltered)}</span></div>
+          <Button variant="ghost" size="sm" icon={FileSpreadsheet} onClick={handleExport} className="w-full sm:w-auto">Exportar Excel</Button>
         </div>
       </div>
 
@@ -108,26 +108,26 @@ export default function SalesHistory() {
                 >
                   {/* Sale row */}
                   <div
-                    className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-white/[0.02] transition-colors"
+                    className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-3 cursor-pointer hover:bg-white/[0.02] transition-colors"
                     onClick={() => setExpandedId(isExpanded ? null : sale.id)}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
                       <div className="w-9 h-9 rounded-xl bg-indigo-500/15 flex items-center justify-center flex-shrink-0">
                         <ShoppingCart size={14} className="text-indigo-400" />
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <div className="flex items-center gap-2">
                           <p className="text-sm font-semibold text-white font-mono">{sale.saleNumber}</p>
                           <Badge variant={PAYMENT_BADGE[sale.paymentMethod] || 'default'} className="text-[10px]">
                             {sale.paymentMethod}
                           </Badge>
                         </div>
-                        <p className="text-xs text-slate-500">
+                        <p className="text-xs text-slate-500 leading-snug break-words">
                           {sale.customerName || 'Mostrador'} · {formatDateTime(sale.date)} · {sale.items.length} ítem(s)
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between sm:justify-end gap-4 flex-shrink-0">
                       <p className="text-lg font-bold text-emerald-400">{formatCurrency(sale.total)}</p>
                       <div className="flex items-center gap-1">
                         <button
@@ -154,8 +154,8 @@ export default function SalesHistory() {
                         transition={{ duration: 0.2 }}
                         className="overflow-hidden border-t border-card-border"
                       >
-                        <div className="px-4 py-4 bg-white/[0.01]">
-                          <table className="w-full">
+                        <div className="px-2 sm:px-4 py-4 bg-white/[0.01] overflow-x-auto">
+                          <table className="w-full min-w-[280px]">
                             <thead>
                               <tr className="text-[10px] text-slate-500 uppercase tracking-wider">
                                 <th className="text-left pb-2">Producto</th>
