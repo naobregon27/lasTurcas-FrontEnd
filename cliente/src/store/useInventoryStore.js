@@ -11,6 +11,7 @@ const INITIAL_SETTINGS = {
   phone: '',
   email: '',
   taxId: '',
+  tourCompleted: false,
 };
 
 const useInventoryStore = create(
@@ -42,6 +43,12 @@ const useInventoryStore = create(
       // SETTINGS
       updateSettings: (data) =>
         set((s) => ({ settings: { ...s.settings, ...data } })),
+
+      completeTour: () =>
+        set((s) => ({ settings: { ...s.settings, tourCompleted: true } })),
+
+      resetTour: () =>
+        set((s) => ({ settings: { ...s.settings, tourCompleted: false } })),
 
       // CATEGORIES
       addCategory: (category) => {

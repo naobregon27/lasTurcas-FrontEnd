@@ -40,11 +40,11 @@ function ProductForm({ form, setForm, categories, errors }) {
       {/* Basic info */}
       <div>
         <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Información del Producto</h4>
-        <div className="grid grid-cols-2 gap-3">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="sm:col-span-2">
             <Input label="Nombre del producto *" placeholder="Ej: Manzana Roja" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} error={errors?.name} />
           </div>
-          <div className="col-span-2">
+          <div className="sm:col-span-2">
             <Textarea label="Descripción" placeholder="Descripción del producto..." value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
           </div>
           <Select label="Categoría *" value={form.categoryId} onChange={(e) => setForm({ ...form, categoryId: e.target.value })} error={errors?.categoryId}>
@@ -58,13 +58,13 @@ function ProductForm({ form, setForm, categories, errors }) {
       {/* Base unit (how it's purchased) */}
       <div className="border-t border-card-border pt-4">
         <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Unidad de Compra (cómo lo recibe)</h4>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <Select label="Unidad base" value={form.baseUnit} onChange={(e) => setForm({ ...form, baseUnit: e.target.value })}>
             {UNITS.map((u) => <option key={u} value={u}>{u}</option>)}
           </Select>
           <Input label="Contenido por unidad" type="number" placeholder="20" value={form.baseQuantity} onChange={(e) => setForm({ ...form, baseQuantity: e.target.value })} />
           <Input label="Descripción (ej: kg por caja)" placeholder="kg por caja" value={form.baseUnitLabel} onChange={(e) => setForm({ ...form, baseUnitLabel: e.target.value })} />
-          <Input label="Precio de compra ($) por unidad base" type="number" placeholder="0" value={form.purchasePrice} onChange={(e) => setForm({ ...form, purchasePrice: e.target.value })} className="col-span-3" />
+          <Input label="Precio de compra ($) por unidad base" type="number" placeholder="0" value={form.purchasePrice} onChange={(e) => setForm({ ...form, purchasePrice: e.target.value })} className="sm:col-span-3" />
         </div>
       </div>
 
@@ -88,15 +88,15 @@ function ProductForm({ form, setForm, categories, errors }) {
             <p className="text-xs text-indigo-300">
               Define cómo vas a dividir cada unidad base al ingresar al stock.
             </p>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <Select label="Unidad de fracción" value={form.fractionUnit} onChange={(e) => setForm({ ...form, fractionUnit: e.target.value })}>
                 {UNITS.map((u) => <option key={u} value={u}>{u}</option>)}
               </Select>
               <Input label="Tamaño de fracción" type="number" step="0.01" placeholder="1" value={form.fractionSize} onChange={(e) => setForm({ ...form, fractionSize: e.target.value })} />
               <Input label="Etiqueta (ej: kg)" placeholder="kg" value={form.fractionUnitLabel} onChange={(e) => setForm({ ...form, fractionUnitLabel: e.target.value })} />
             </div>
-            <div className="flex items-end gap-3">
-              <div className="flex-1">
+            <div className="flex flex-col sm:flex-row sm:items-end gap-3">
+              <div className="flex-1 min-w-0">
                 <Input
                   label="Fracciones por unidad base"
                   type="number"
@@ -105,7 +105,7 @@ function ProductForm({ form, setForm, categories, errors }) {
                   onChange={(e) => setForm({ ...form, fractionsPerBase: e.target.value })}
                 />
               </div>
-              <Button variant="ghost" size="sm" onClick={calcFractions} type="button">
+              <Button variant="ghost" size="sm" onClick={calcFractions} type="button" className="w-full sm:w-auto flex-shrink-0">
                 Calcular automático
               </Button>
             </div>
@@ -123,7 +123,7 @@ function ProductForm({ form, setForm, categories, errors }) {
       {/* Stock */}
       <div className="border-t border-card-border pt-4">
         <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Stock</h4>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Input label="Stock inicial" type="number" placeholder="0" value={form.stock} onChange={(e) => setForm({ ...form, stock: e.target.value })} />
           <Input label="Stock mínimo (alerta)" type="number" placeholder="5" value={form.minStock} onChange={(e) => setForm({ ...form, minStock: e.target.value })} />
         </div>
@@ -210,7 +210,7 @@ export default function Products() {
     <div className="space-y-4">
       {/* Filters */}
       <div className="bg-card border border-card-border rounded-xl px-4 py-3 flex flex-wrap items-center gap-3">
-        <div className="relative flex-1 min-w-48">
+        <div className="relative flex-1 min-w-0 w-full sm:min-w-[12rem]">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
           <input
             value={search}
@@ -227,7 +227,7 @@ export default function Products() {
         <select
           value={filterCat}
           onChange={(e) => setFilterCat(e.target.value)}
-          className="bg-input border border-input-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+          className="w-full sm:w-auto min-w-0 sm:min-w-[10rem] bg-input border border-input-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
         >
           <option value="">Todas las categorías</option>
           {categories.map((c) => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
@@ -235,17 +235,17 @@ export default function Products() {
         <select
           value={filterStock}
           onChange={(e) => setFilterStock(e.target.value)}
-          className="bg-input border border-input-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+          className="w-full sm:w-auto min-w-0 sm:min-w-[9rem] bg-input border border-input-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
         >
           <option value="all">Todo el stock</option>
           <option value="low">⚠ Stock bajo</option>
           <option value="ok">✓ Stock OK</option>
         </select>
-        <div className="flex items-center gap-2 text-xs text-slate-500 ml-auto">
+        <div className="flex items-center gap-2 text-xs text-slate-500 w-full sm:w-auto justify-center sm:justify-start sm:ml-auto order-last sm:order-none">
           <SlidersHorizontal size={12} />
           {filtered.length} de {products.length}
         </div>
-        <Button icon={Plus} onClick={openAdd}>Nuevo Producto</Button>
+        <Button icon={Plus} onClick={openAdd} className="w-full sm:w-auto">Nuevo Producto</Button>
       </div>
 
       {/* Table */}
@@ -356,9 +356,9 @@ export default function Products() {
         subtitle={modal.editing ? 'Modificá los datos del producto' : 'Completá los datos para registrar el producto'}
         size="lg"
         footer={
-          <div className="flex justify-end gap-3">
-            <Button variant="ghost" onClick={closeModal}>Cancelar</Button>
-            <Button onClick={handleSave} loading={saving} icon={modal.editing ? Edit2 : Plus}>
+          <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3 w-full">
+            <Button variant="ghost" onClick={closeModal} className="w-full sm:w-auto">Cancelar</Button>
+            <Button onClick={handleSave} loading={saving} icon={modal.editing ? Edit2 : Plus} className="w-full sm:w-auto">
               {modal.editing ? 'Guardar cambios' : 'Crear producto'}
             </Button>
           </div>
@@ -423,7 +423,7 @@ export default function Products() {
           return (
             <div>
               {/* Summary */}
-              <div className="grid grid-cols-3 gap-3 mb-5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
                 <div className="text-center p-3 rounded-xl border border-card-border" style={{ background: 'rgba(255,255,255,0.02)' }}>
                   <p className="text-xl font-bold text-white">{historyModal.product.stock}</p>
                   <p className="text-[10px] text-slate-500 uppercase tracking-wide">Stock actual</p>

@@ -127,9 +127,9 @@ export default function Categories() {
         title={modal.editing ? 'Editar Categoría' : 'Nueva Categoría'}
         size="sm"
         footer={
-          <div className="flex justify-end gap-3">
-            <Button variant="ghost" onClick={closeModal}>Cancelar</Button>
-            <Button onClick={handleSave} loading={saving} icon={modal.editing ? Edit2 : Plus}>
+          <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3 w-full">
+            <Button variant="ghost" onClick={closeModal} className="w-full sm:w-auto">Cancelar</Button>
+            <Button onClick={handleSave} loading={saving} icon={modal.editing ? Edit2 : Plus} className="w-full sm:w-auto">
               {modal.editing ? 'Guardar' : 'Crear'}
             </Button>
           </div>
@@ -141,7 +141,7 @@ export default function Categories() {
           {/* Icon picker */}
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-2">Ícono</label>
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
               {ICONS.map((icon) => (
                 <button
                   key={icon}

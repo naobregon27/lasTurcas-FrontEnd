@@ -26,7 +26,7 @@ function FlameMini() {
   );
 }
 
-export default function Sidebar({ onSearchOpen }) {
+export default function Sidebar({ onSearchOpen, mobileOpen, onCloseMobile }) {
   const { user, logout, getLowStockProducts } = useInventoryStore();
   const navigate = useNavigate();
   const lowStock = getLowStockProducts();
@@ -40,7 +40,16 @@ export default function Sidebar({ onSearchOpen }) {
   const initials = user?.name?.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase() || 'A';
 
   return (
-    <aside className="w-64 min-h-screen bg-sidebar flex flex-col border-r border-sidebar-border">
+    <aside
+      className={`
+        z-40 w-64 min-h-screen min-h-[100dvh] bg-sidebar flex flex-col border-r border-sidebar-border
+        pt-[env(safe-area-inset-top)] lg:pt-0
+        transition-transform duration-200 ease-out
+        max-lg:fixed max-lg:inset-y-0 max-lg:left-0
+        ${mobileOpen ? 'max-lg:translate-x-0 max-lg:shadow-2xl' : 'max-lg:-translate-x-full'}
+        lg:translate-x-0
+      `}
+    >
 
       {/* Brand */}
       <div className="px-5 py-5 border-b border-sidebar-border">
@@ -88,6 +97,7 @@ export default function Sidebar({ onSearchOpen }) {
           <NavLink
             key={to}
             to={to}
+            onClick={() => onCloseMobile?.()}
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 group relative ${
                 isActive
@@ -126,12 +136,13 @@ export default function Sidebar({ onSearchOpen }) {
       {/* Search shortcut */}
       <div className="px-3 pb-2">
         <button
+          id="tour-search"
           onClick={onSearchOpen}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-500 hover:text-slate-300 hover:bg-white/[0.04] transition-all duration-150 group"
         >
           <Search size={15} className="group-hover:text-slate-400 transition-colors" />
           <span className="flex-1 text-left">Buscar...</span>
-          <div className="flex items-center gap-0.5">
+          <div className="hidden sm:flex items-center gap-0.5">
             <kbd className="text-[9px] font-mono bg-white/5 border border-white/10 rounded px-1 py-0.5 text-slate-600">Ctrl</kbd>
             <span className="text-[9px] text-slate-700">+</span>
             <kbd className="text-[9px] font-mono bg-white/5 border border-white/10 rounded px-1 py-0.5 text-slate-600">K</kbd>
@@ -143,6 +154,7 @@ export default function Sidebar({ onSearchOpen }) {
       <div className="px-3 pb-1">
         <NavLink
           to="/settings"
+          onClick={() => onCloseMobile?.()}
           className={({ isActive }) =>
             `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 group relative ${
               isActive ? 'text-amber-300 border' : 'text-slate-500 hover:text-slate-300 hover:bg-white/[0.04]'

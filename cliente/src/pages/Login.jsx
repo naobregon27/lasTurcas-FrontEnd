@@ -71,7 +71,7 @@ export default function Login() {
 
       {/* Background ambient glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full"
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(100vw,700px)] h-[min(100vw,700px)] max-w-[100vw] rounded-full"
           style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 65%)' }} />
         <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full"
           style={{ background: 'radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%)' }} />
@@ -117,7 +117,7 @@ export default function Login() {
           {/* Top amber gradient bar */}
           <div className="h-[3px] bg-gradient-to-r from-amber-700 via-amber-400 to-orange-500" />
 
-          <div className="px-8 py-9">
+          <div className="px-5 py-7 sm:px-8 sm:py-9">
 
             {/* Logo + Title */}
             <div className="flex flex-col items-center mb-8">

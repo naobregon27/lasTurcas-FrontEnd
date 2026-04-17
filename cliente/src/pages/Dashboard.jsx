@@ -94,18 +94,18 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Welcome banner */}
-      <div className="relative rounded-2xl px-6 py-4 overflow-hidden border" style={{ background: 'linear-gradient(135deg, rgba(180,83,9,0.15) 0%, rgba(245,158,11,0.08) 50%, transparent 100%)', borderColor: 'rgba(245,158,11,0.2)' }}>
-        <div className="absolute right-0 top-0 bottom-0 w-48 bg-gradient-to-l from-violet-500/5 to-transparent" />
-        <h2 className="text-lg font-bold text-white">Bienvenido al Panel de Control</h2>
-        <p className="text-sm text-slate-400 mt-0.5">Resumen actualizado del almacén · {new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
-        <div className="flex gap-3 mt-3">
+      <div className="relative rounded-2xl px-4 sm:px-6 py-4 overflow-hidden border" style={{ background: 'linear-gradient(135deg, rgba(180,83,9,0.15) 0%, rgba(245,158,11,0.08) 50%, transparent 100%)', borderColor: 'rgba(245,158,11,0.2)' }}>
+        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-48 bg-gradient-to-l from-violet-500/5 to-transparent" />
+        <h2 className="text-base sm:text-lg font-bold text-white">Bienvenido al Panel de Control</h2>
+        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">{new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+        <div className="flex flex-wrap gap-2 sm:gap-3 mt-3">
           <Button size="sm" icon={Plus} onClick={() => navigate('/stock-entry')}>Cargar Stock</Button>
           <Button size="sm" variant="ghost" icon={ShoppingCart} onClick={() => navigate('/sales')}>Nueva Venta</Button>
         </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <StatCard
           title="Ventas Hoy"
           value={formatCurrency(stats.todayRevenue)}
@@ -140,8 +140,8 @@ export default function Dashboard() {
       {/* Charts row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Sales Area Chart */}
-        <div className="lg:col-span-2 bg-card border border-card-border rounded-2xl p-5">
-          <div className="flex items-center justify-between mb-4">
+        <div className="lg:col-span-2 bg-card border border-card-border rounded-2xl p-4 sm:p-5">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-4">
             <div>
               <h3 className="text-sm font-semibold text-white">Ventas — Últimos 7 días</h3>
               <p className="text-xs text-slate-500">Total facturado por día</p>
@@ -166,7 +166,7 @@ export default function Dashboard() {
         </div>
 
         {/* Category Pie */}
-        <div className="bg-card border border-card-border rounded-2xl p-5">
+        <div className="bg-card border border-card-border rounded-2xl p-4 sm:p-5">
           <h3 className="text-sm font-semibold text-white mb-1">Valor por Categoría</h3>
           <p className="text-xs text-slate-500 mb-4">Distribución del stock</p>
           <ResponsiveContainer width="100%" height={140}>
@@ -195,7 +195,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Low stock alert */}
         {lowStock.length > 0 && (
-          <div className="bg-card border border-red-500/20 rounded-2xl p-5">
+          <div className="bg-card border border-red-500/20 rounded-2xl p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-7 h-7 rounded-lg bg-red-500/15 flex items-center justify-center">
                 <AlertTriangle size={14} className="text-red-400" />
@@ -226,8 +226,8 @@ export default function Dashboard() {
         )}
 
         {/* Recent sales */}
-        <div className="bg-card border border-card-border rounded-2xl p-5">
-          <div className="flex items-center justify-between mb-4">
+        <div className="bg-card border border-card-border rounded-2xl p-4 sm:p-5">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-4">
             <div>
               <h3 className="text-sm font-semibold text-white">Últimas Ventas</h3>
               <p className="text-xs text-slate-500">Transacciones recientes</p>
@@ -258,8 +258,8 @@ export default function Dashboard() {
         </div>
 
         {/* Top products */}
-        <div className="bg-card border border-card-border rounded-2xl p-5">
-          <div className="flex items-center justify-between mb-4">
+        <div className="bg-card border border-card-border rounded-2xl p-4 sm:p-5">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-4">
             <div>
               <h3 className="text-sm font-semibold text-white">Productos Más Vendidos</h3>
               <p className="text-xs text-slate-500">Por unidades despachadas</p>

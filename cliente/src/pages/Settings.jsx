@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import {
   Building2, Phone, Mail, MapPin, Hash, Save,
   Download, Upload, Trash2, AlertTriangle, Lock,
-  Eye, EyeOff, CheckCircle2, Shield,
+  Eye, EyeOff, CheckCircle2, Shield, PlayCircle,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import useInventoryStore from '../store/useInventoryStore';
@@ -15,7 +15,7 @@ function SectionCard({ title, subtitle, icon: Icon, iconColor, children }) {
   return (
     <div className="bg-card border border-card-border rounded-2xl overflow-hidden"
       style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.3)' }}>
-      <div className="px-6 py-4 border-b border-card-border flex items-center gap-3">
+      <div className="px-4 sm:px-6 py-4 border-b border-card-border flex items-center gap-3">
         <div className="w-8 h-8 rounded-xl flex items-center justify-center"
           style={{ background: `${iconColor}18` }}>
           <Icon size={15} style={{ color: iconColor }} />
@@ -25,13 +25,13 @@ function SectionCard({ title, subtitle, icon: Icon, iconColor, children }) {
           {subtitle && <p className="text-xs text-slate-500">{subtitle}</p>}
         </div>
       </div>
-      <div className="p-6">{children}</div>
+      <div className="p-4 sm:p-6">{children}</div>
     </div>
   );
 }
 
 export default function Settings() {
-  const { settings, updateSettings, exportData, importData, clearAllData, products, sales, suppliers } = useInventoryStore();
+  const { settings, updateSettings, exportData, importData, clearAllData, resetTour, products, sales, suppliers } = useInventoryStore();
   const fileInputRef = useRef(null);
 
   const [bizForm, setBizForm] = useState({
@@ -124,12 +124,12 @@ export default function Settings() {
   ];
 
   return (
-    <div className="space-y-5 max-w-3xl mx-auto">
+    <div className="space-y-5 max-w-3xl mx-auto w-full min-w-0">
 
       {/* Business info */}
       <SectionCard title="Información del Negocio" subtitle="Datos que se muestran en documentos e impresiones" icon={Building2} iconColor="#f59e0b">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="sm:col-span-2">
             <Input
               label="Nombre del negocio"
               placeholder="Almacén Fénix"
@@ -218,7 +218,7 @@ export default function Settings() {
       {/* Backup */}
       <SectionCard title="Copia de Seguridad" subtitle="Exportá e importá todos los datos del sistema" icon={Download} iconColor="#34d399">
         {/* Data overview */}
-        <div className="flex gap-3 mb-5">
+        <div className="flex flex-col sm:flex-row gap-3 mb-5">
           {dataStats.map((d) => (
             <div key={d.label} className="flex-1 text-center p-3 rounded-xl border border-card-border"
               style={{ background: 'rgba(255,255,255,0.02)' }}>
@@ -228,7 +228,7 @@ export default function Settings() {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {/* Export */}
           <motion.button
             whileTap={{ scale: 0.98 }}
@@ -274,17 +274,36 @@ export default function Settings() {
         </div>
       </SectionCard>
 
+      {/* Tour */}
+      <SectionCard title="Tour Guiado" subtitle="Volvé a ver la guía de bienvenida del sistema" icon={PlayCircle} iconColor="#f59e0b">
+        <div className="flex items-center justify-between p-4 rounded-xl border"
+          style={{ background: 'rgba(245,158,11,0.05)', borderColor: 'rgba(245,158,11,0.2)' }}>
+          <div>
+            <p className="text-sm font-semibold text-white">Reiniciar el tour de bienvenida</p>
+            <p className="text-xs text-slate-500 mt-0.5">Al ir al Dashboard se iniciará nuevamente la guía paso a paso.</p>
+          </div>
+          <button
+            onClick={() => { resetTour(); toast.success('¡Tour reiniciado! Andá al Dashboard para verlo.'); }}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-colors"
+            style={{ background: 'rgba(245,158,11,0.1)', borderColor: 'rgba(245,158,11,0.3)', color: '#fbbf24' }}
+          >
+            <PlayCircle size={14} />
+            Ver tour
+          </button>
+        </div>
+      </SectionCard>
+
       {/* Danger zone */}
       <SectionCard title="Zona de Peligro" subtitle="Acciones irreversibles sobre los datos" icon={AlertTriangle} iconColor="#f87171">
-        <div className="flex items-center justify-between p-4 rounded-xl border"
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 rounded-xl border"
           style={{ background: 'rgba(239,68,68,0.05)', borderColor: 'rgba(239,68,68,0.2)' }}>
-          <div>
+          <div className="min-w-0">
             <p className="text-sm font-semibold text-white">Borrar todos los datos</p>
             <p className="text-xs text-slate-500 mt-0.5">Elimina productos, ventas, stock y movimientos. No se puede deshacer.</p>
           </div>
           <button
             onClick={() => setClearDialog(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-red-400 border border-red-500/30 hover:bg-red-500/10 transition-colors"
+            className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-red-400 border border-red-500/30 hover:bg-red-500/10 transition-colors w-full sm:w-auto flex-shrink-0"
           >
             <Trash2 size={14} />
             Borrar todo

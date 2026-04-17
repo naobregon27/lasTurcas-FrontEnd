@@ -110,7 +110,7 @@ export default function Sales() {
 
   if (successSale) {
     return (
-      <div className="max-w-lg mx-auto">
+      <div className="max-w-lg mx-auto w-full px-1 sm:px-0">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -155,9 +155,9 @@ export default function Sales() {
             )}
           </div>
 
-          <div className="px-6 pb-5 flex gap-3">
-            <Button variant="ghost" icon={Printer} className="flex-1" onClick={handlePrint}>Imprimir ticket</Button>
-            <Button className="flex-1" icon={Plus} onClick={() => setSuccessSale(null)}>Nueva venta</Button>
+          <div className="px-4 sm:px-6 pb-5 flex flex-col-reverse sm:flex-row gap-2 sm:gap-3">
+            <Button variant="ghost" icon={Printer} className="w-full sm:flex-1" onClick={handlePrint}>Imprimir ticket</Button>
+            <Button className="w-full sm:flex-1" icon={Plus} onClick={() => setSuccessSale(null)}>Nueva venta</Button>
           </div>
         </motion.div>
       </div>
@@ -187,7 +187,7 @@ export default function Sales() {
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-2 max-h-[520px] overflow-y-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[min(520px,55vh)] sm:max-h-[520px] overflow-y-auto">
             {filteredProducts.map((p) => {
               const cat = getCategoryById(p.categoryId);
               const inCart = cart.find((i) => i.productId === p.id);
@@ -225,7 +225,7 @@ export default function Sales() {
               );
             })}
             {filteredProducts.length === 0 && (
-              <div className="col-span-2 text-center py-8 text-sm text-slate-500">
+              <div className="sm:col-span-2 text-center py-8 text-sm text-slate-500">
                 {search ? `Sin resultados para "${search}"` : 'No hay productos con stock disponible'}
               </div>
             )}
@@ -267,7 +267,7 @@ export default function Sales() {
                       <X size={12} />
                     </button>
                   </div>
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center justify-between gap-y-2 gap-x-2">
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => updateQuantity(item.productId, item.quantity - 1)}
@@ -332,7 +332,7 @@ export default function Sales() {
               </div>
 
               {/* Payment method */}
-              <div className="grid grid-cols-4 gap-1">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                 {PAYMENT_METHODS.map(({ id, label, icon: Icon }) => (
                   <button
                     key={id}
